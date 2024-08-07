@@ -32,12 +32,12 @@ on:
 
 env:
   AWS_REGION: us-east-2                  # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: web-app                 # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: my-web-app                 # set this to your Amazon ECR repository name
   ECS_SERVICE: Clusters                # set this to your Amazon ECS service name
   ECS_CLUSTER: web-application                # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: web-app:1            # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: node-todoweb-app           # set this to the name of the container in the
+  CONTAINER_NAME: node-todo-web-app           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
 
 permissions:
@@ -73,8 +73,8 @@ jobs:
         # Build a docker container and
         # push it to ECR so that it can
         # be deployed to ECS.
-        docker build -t $Public registry/$web-app:$latest .
-        docker push $Public registry/$web-application-node:$latest .
+        docker build -t $Public registry/$my-web-app:$latest .
+        docker push $Public registry/$my-web-app:$latest .
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Fill in the new image ID in the Amazon ECS task definition
