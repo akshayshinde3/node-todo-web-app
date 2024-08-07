@@ -32,7 +32,7 @@ on:
 
 env:
   AWS_REGION: us-east-2                  # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: my-web-app                 # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: web-app                 # set this to your Amazon ECR repository name
   ECS_SERVICE: web-app-service
                                                  # set this to your Amazon ECS service name
   ECS_CLUSTER: web-application               # set this to your Amazon ECS cluster name
@@ -68,7 +68,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
-        ECR_REGISTRY: public.ecr.aws/x9i7l1k6/web-app
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: latest
         REPOSITORY: web-app
       run: |
