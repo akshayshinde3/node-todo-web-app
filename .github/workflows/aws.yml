@@ -31,15 +31,15 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-2                  # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: web-app                 # set this to your Amazon ECR repository name
+  AWS_REGION: us-east-2                             # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY:  web-application-node               # set this to your Amazon ECR repository name
   ECS_SERVICE: web-app-service
-                                                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: web-application               # set this to your Amazon ECS cluster name
+                                                        # set this to your Amazon ECS service name
+  ECS_CLUSTER: web-application                          # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: web-app-task-definition.json            # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: node-app-container           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+                                                          # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: node-app-container                      # set this to the name of the container in the
+                                                      # containerDefinitions section of your task definition
 
 permissions:
   contents: read
@@ -70,7 +70,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         IMAGE_TAG: latest
-        REPOSITORY: web-app
+        REPOSITORY: web-application-node
       run: |
         # Build a docker container and
         # push it to ECR so that it can
