@@ -31,7 +31,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-        ECR_REPOSITORY: public.ecr.aws/x9i7l1k6/node-js-app
+        ECR_REPOSITORY: node-js-app
         IMAGE_TAG: latest
       run: |
         # Build a docker container and
