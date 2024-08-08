@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-2                  # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: nodejs-app            # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: nodejs-app            # ensure this matches the ECR repository name you created
   ECS_SERVICE: nodejs-app-service           # set this to your Amazon ECS service name
   ECS_CLUSTER: devcluster           # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: nodejs-todo-app-td.json  # set this to the path to your Amazon ECS task definition file, e.g. .aws/task-definition.json
@@ -50,7 +50,6 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
