@@ -4,18 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-env:
-  AWS_REGION: us-east-2                  # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: nodejs-app            # ensure this matches the ECR repository name you created
-  ECS_SERVICE: nodejs-app-service           # set this to your Amazon ECS service name
-  ECS_CLUSTER: devcluster           # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: nodejs-todo-app-td.json  # set this to the path to your Amazon ECS task definition file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: nodejs-container     # set this to the name of the container in the containerDefinitions section of your task definition
-  IMAGE_TAG: latest                      # set this to the desired image tag
-
-permissions:
-  contents: read
-
 jobs:
   deploy:
     name: Deploy
@@ -31,18 +19,20 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        aws-region: us-east-2
 
     - name: Login to Amazon ECR
       id: ecr-login
       uses: aws-actions/amazon-ecr-login@v1
+      with:
+          mask-password: 'true'
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-        ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
-        IMAGE_TAG: ${{ env.IMAGE_TAG }}
+        ECR_REPOSITORY: node-js-app
+        IMAGE_TAG: latest
       run: |
         # Build a docker container and
         # push it to ECR so that it can
@@ -54,14 +44,14 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: ${{ env.ECS_TASK_DEFINITION }}
-        container-name: ${{ env.CONTAINER_NAME }}
+        task-definition: node-todo-app-td.json
+        container-name: nodejs-container
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
+        service: nodejs-app-service
+        cluster: nodejs-app-service
         wait-for-service-stability: true
