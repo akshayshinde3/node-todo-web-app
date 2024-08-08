@@ -54,4 +54,9 @@ jobs:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: web-app-service
         cluster: Devcluster
-        
+
+    - name: Rollback on Failure 
+      if: failure()
+      run: |
+        chmod +x rollback.sh
+        ./rollback.sh
