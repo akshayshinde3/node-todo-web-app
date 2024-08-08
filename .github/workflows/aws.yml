@@ -31,7 +31,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-        ECR_REPOSITORY: node-js-app
+        ECR_REPOSITORY: nodejs-app
         IMAGE_TAG: latest
       run: |
         # Build a docker container and
@@ -44,7 +44,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: node-todo-app-td.json
+        task-definition: node-todo-app-tdd.json
         container-name: nodejs-container
         image: ${{ steps.build-image.outputs.image }}
 
@@ -53,5 +53,5 @@ jobs:
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: nodejs-app-service
-        cluster: nodejs-app-service
+        cluster: Devcluster
         wait-for-service-stability: true
