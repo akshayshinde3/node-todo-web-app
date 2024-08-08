@@ -54,6 +54,7 @@ jobs:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: web-app-service
         cluster: Devcluster
+        wait-for-service-stability: true
 
     - name: Rollback on Failure 
       if: failure()
