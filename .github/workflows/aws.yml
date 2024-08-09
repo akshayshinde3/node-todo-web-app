@@ -55,5 +55,12 @@ jobs:
         service: nodejs-service
         cluster: nodejs-cluster
         wait-for-service-stability: true
+        
+    - name: Rollback on Failure 
+      if: failure()
+      run: |
+        chmod +x rollback.sh
+        ./rollback.sh
+
 
   
