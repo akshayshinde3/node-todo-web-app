@@ -1,5 +1,11 @@
+
+
+
+![Github Action Architecture](https://github.com/user-attachments/assets/633bc406-2dda-4f0d-a4ca-54a34b778183)
+
 -Introduction
-CI/CD are parts of the DevOps process for delivering new software as soon as possible with help of automated test and automation build tools like Jenkins, GitHub-Actions.
+CI/CD are parts of the DevOps process for![Github Action Architecture]
+ delivering new software as soon as possible with help of automated test and automation build tools like Jenkins, GitHub-Actions.
 Few benefits of implementing CI/CD in your organization:
 
 Faster Delivery
