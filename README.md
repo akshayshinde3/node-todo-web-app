@@ -34,6 +34,10 @@ Tags is Optional, you can skip this
 Now, Review to see all of the choices you made up to this point. When you are ready to proceed, choose Create user
 To save the access keys, choose Download .csv and then save the file to a safe location
 
+![Permision to USER](https://github.com/user-attachments/assets/0c8664a0-d4ad-4280-83f5-2633f2144c84)
+
+
+
 -Elastic Container Registry (ECR)
 Now we are going to create an image repository
 Open the Amazon ECR console
@@ -42,6 +46,7 @@ For Visibility settings, choose Private
 For Repository name, specify a name for the repository
 Choose to Create a repository
 
+![private repo](https://github.com/user-attachments/assets/668b1467-a2e1-4aef-a00c-573734cc76a1)
 -Elastic Container Service (ECS)
 Components:
 
@@ -52,6 +57,9 @@ Create Task definition
 A task definition is required to run Docker containers in Amazon ECS.
 Let's create Task definition:
 
+![cluster](https://github.com/user-attachments/assets/4a76f7df-2acc-4a72-8f1c-2570b014c003)
+
+
 -Create Cluster
 Open the Amazon ECS console
 Choose EC2
@@ -59,16 +67,15 @@ In the navigation pane, choose Task Definitions, Create a new task definition.
 For the Task definition family, specify a unique name for the task definition.
 Assign a Task role, if don't have a Task role then skip it.
 Container definitions, click on Add container. In container name add ECR repo name and at the place of Image add ECR repo URI link. And other details are shown below in the image
-Create Cluster
-Open the Amazon ECS console
-In the navigation pane, choose Clusters.
-On the Clusters page, choose Create Cluster.
-Select cluster template: EC2 Linux + Networking
-On the Configure cluster page, enter a Cluster name.
-On Instance configuration, go with (t2.micro) it is under free tier. And create an SSH key for your instance as well.
-Choose to Create.
+![cluster](https://github.com/user-attachments/assets/c60b6bb7-1465-4219-a163-0725c728e391)
+
+
+
 Create Service
 In Configure service, set Launch type (EC2), Service Name, and Number of tasks(1). For other options stay with default.
+
+![Deploy service](https://github.com/user-attachments/assets/356223c4-4d09-4d94-984f-118d68904177)
+
 
 -GitHub secrets
 Now we are going to put our AWS credentials in GitHub secrets in the working repository.
@@ -90,7 +97,8 @@ Create your pipeline with Github Actions
 On your GitHub repository select the Actions tab.
 In search bar search for Deploy to Amazon ECS and configure it.
 
-It will add a file to your repository (/.github/workflows/aws.yml) that represents your GitHub Actions.
+![Final Deployment](https://github.com/user-attachments/assets/9c985de4-8bdc-4c68-b3fa-43489db9f39a)
+
 
 -Environment Variables:
 
@@ -102,3 +110,9 @@ ECS_TASK_DEFINITION — Path of the ECS task definition in JSON format which is 
 CONTAINER_NAME — Docker container name under the ECS task definition.
 
 After setting all of this env's start committing the .yaml
+
+
+![app](https://github.com/user-attachments/assets/67124238-a701-4d8f-8c85-9cf150a30d53)
+
+
+Blog Link : https://akshayshinde9.hashnode.dev/cicd-pipeline-github-actions-with-aws-ecs
