@@ -1,21 +1,20 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:905418172864:task-definition/nodejs-td:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:905418172864:task-definition/nodejs-td:5",
     "containerDefinitions": [
         {
-            "name": "node-container",
+            "name": "nodejs-container",
             "image": "905418172864.dkr.ecr.ap-south-1.amazonaws.com/nodejs-repo:latest",
-            "cpu": 1024,
-            "memory": 3072,
+            "cpu": 0,
             "portMappings": [
                 {
-                    "name": "node-container-80-tcp",
+                    "name": "nodejs-container-80-tcp",
                     "containerPort": 80,
                     "hostPort": 80,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 },
                 {
-                    "name": "nodejs-app",
+                    "name": "nodejs-container-8000-tcp",
                     "containerPort": 8000,
                     "hostPort": 8000,
                     "protocol": "tcp",
@@ -32,6 +31,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-group": "/ecs/nodejs-td",
+                    "awslogs-create-group": "true",
                     "awslogs-region": "ap-south-1",
                     "awslogs-stream-prefix": "ecs"
                 },
@@ -42,9 +42,9 @@
     ],
     "family": "nodejs-td",
     "taskRoleArn": "arn:aws:iam::905418172864:role/ecs-task",
-    "executionRoleArn": "arn:aws:iam::905418172864:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::905418172864:role/ecs-task",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 5,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
@@ -71,6 +71,9 @@
         },
         {
             "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
         }
     ],
     "placementConstraints": [],
@@ -79,7 +82,7 @@
         "FARGATE"
     ],
     "requiresCompatibilities": [
-        "FARGATE"
+        "EC2"
     ],
     "cpu": "1024",
     "memory": "3072",
@@ -87,7 +90,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2024-08-09T06:39:38.470Z",
+    "registeredAt": "2024-08-09T08:44:40.273Z",
     "registeredBy": "arn:aws:iam::905418172864:root",
     "tags": []
 }
